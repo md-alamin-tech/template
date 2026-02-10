@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fast Image Marquee</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0a0a15;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .marquee-container {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            /* slightly taller for better look */
+            overflow: hidden;
+            margin: 60px 0;
+        }
+
+        .marquee-track {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            will-change: transform;
+        }
+
+        /* Faster marquee - right to left */
+        .marquee-rtl {
+            animation: scroll-rtl 32s linear infinite;
+            /* was 50s → now faster */
+        }
+
+        /* Faster marquee - left to right */
+        .marquee-ltr {
+            animation: scroll-ltr 30s linear infinite;
+            /* was 46s → now faster */
+        }
+
+        @keyframes scroll-rtl {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        @keyframes scroll-ltr {
+            from {
+                transform: translateX(-50%);
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .item {
+            flex-shrink: 0;
+            height: 88%;
+            /* better proportion */
+            margin: 0 70px;
+            /* more space between images */
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.35s ease;
+            /* smooth hover transition */
+            box-shadow:
+                0 0 35px rgba(0, 255, 255, 0.18),
+                inset 0 0 25px rgba(255, 0, 255, 0.1);
+        }
+
+        .item img {
+            height: 100%;
+            width: auto;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Fixed & improved hover effect */
+        .item:hover {
+            transform: scale(1.12);
+            /* bigger but not too much */
+            box-shadow:
+                0 0 70px rgba(0, 255, 255, 0.55),
+                0 0 120px rgba(255, 0, 255, 0.35),
+                inset 0 0 40px rgba(255, 255, 255, 0.15);
+            z-index: 10;
+            /* makes sure hovered image stays on top */
+        }
+
+        /* Prevent hover from messing up the animation */
+        .marquee-track:hover .item {
+            animation-play-state: paused;
+            /* optional: pause when hovering */
+        }
+
+        .marquee-track:hover .item:hover {
+            animation-play-state: running;
+            /* keep moving even when hovering others */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Right to Left - Faster -->
+    <div class="marquee-container">
+        <div class="marquee-track marquee-rtl">
+
+            <div class="item"><img
+                    src="https://i.ibb.co.com/4wwFygLn/outdoors-evening-ceremony-bride-with-traditional-wedding-cake.jpg"
+                    alt="outdoors evening ceremony bride with traditional wedding cake"></div>
+
+            <div class="item"><img src="https://i.ibb.co.com/xS39WZPJ/chair-park.jpg" alt="chair park"></div>
+
+
+            <div class="item"><img
+                    src="https://i.ibb.co.com/chGGKRDZ/sunshine-crosses-garlands-greenery-hanging-courtyard.jpg"
+                    alt="sunshine crosses garlands greenery hanging courtyard"></div>
+
+
+            <div class="item"><img src="https://i.ibb.co.com/Xkf42B0n/frankenstein-sitting-table-full-shot.jpg"
+                    alt="frankenstein sitting table full shot"></div>
+
+            <div class="item"><img src="https://i.ibb.co.com/BVH28j4Y/full-shot-people-sitting-table-indoors.jpg"
+                    alt="full shot people sitting table indoors"></div>
+
+            <div class="item"><img src="https://i.ibb.co.com/S4p9tHnh/garden-red-gumboots.jpg"
+                    alt="garden red gumboots"></div>
+            <!-- Repeat for seamless loop -->
+
+
+            <div class="item"><img
+                    src="https://i.ibb.co.com/4wwFygLn/outdoors-evening-ceremony-bride-with-traditional-wedding-cake.jpg"
+                    alt="outdoors evening ceremony bride with traditional wedding cake"></div>
+
+            <div class="item"><img src="https://i.ibb.co.com/xS39WZPJ/chair-park.jpg" alt="chair park"></div>
+
+
+            <div class="item"><img
+                    src="https://i.ibb.co.com/chGGKRDZ/sunshine-crosses-garlands-greenery-hanging-courtyard.jpg"
+                    alt="sunshine crosses garlands greenery hanging courtyard"></div>
+
+
+            <div class="item"><img src="https://i.ibb.co.com/Xkf42B0n/frankenstein-sitting-table-full-shot.jpg"
+                    alt="frankenstein sitting table full shot"></div>
+
+            <div class="item"><img src="https://i.ibb.co.com/BVH28j4Y/full-shot-people-sitting-table-indoors.jpg"
+                    alt="full shot people sitting table indoors"></div>
+
+            <div class="item"><img src="https://i.ibb.co.com/S4p9tHnh/garden-red-gumboots.jpg"
+                    alt="garden red gumboots"></div>
+        </div>
+    </div>
+
+    <!-- Left to Right - Faster -->
+    <div class="marquee-container">
+        <div class="marquee-track marquee-ltr">
+            <div class="item"><img
+                    src="https://i.ibb.co.com/Dqtdsbf/beautiful-brunette-bride-near-archway-made-blue-hydrangea-ruscus-wedding-day.jpg"
+                    alt="beautiful brunette bride near archway made blue hydrangea ruscus wedding day"></div>
+
+
+            <div class="item"><img
+                    src="https://i.ibb.co.com/V0VddWTL/stunning-bride-beige-dress-stands-before-wedding-altar-outside.jpg"
+                    alt="stunning bride beige dress stands before wedding altar outside"></div>
+
+
+            <div class="item"><img src="https://i.ibb.co.com/RpHTk4zQ/happy-bride-outdoors.jpg"
+                    alt="happy bride outdoors"></div>
+
+
+            <div class="item"><img
+                    src="https://i.ibb.co.com/chGwF1QX/closeup-shot-beautiful-wedding-bouquet-with-gorgeous-white-roses.jpg"
+                    alt="closeup shot beautiful wedding bouquet with gorgeous white roses"></div>
+
+            <div class="item"><img
+                    src="https://i.ibb.co.com/5WfytJwD/closeup-pink-roses-put-bouquet-tied-with-chair.jpg"
+                    alt="closeup pink roses put bouquet tied with chair"></div>
+
+            <div class="item"><img src="https://i.ibb.co.com/TMzM2DxC/bridal-veil-covers-up-wedding-roses-bouquet.jpg"
+                    alt="bridal veil covers up wedding roses bouquet"></div>
+
+            <!-- Repeat for seamless loop -->
+            <div class="item"><img
+                    src="https://i.ibb.co.com/Dqtdsbf/beautiful-brunette-bride-near-archway-made-blue-hydrangea-ruscus-wedding-day.jpg"
+                    alt="beautiful brunette bride near archway made blue hydrangea ruscus wedding day"></div>
+
+
+            <div class="item"><img
+                    src="https://i.ibb.co.com/V0VddWTL/stunning-bride-beige-dress-stands-before-wedding-altar-outside.jpg"
+                    alt="stunning bride beige dress stands before wedding altar outside"></div>
+
+
+            <div class="item"><img src="https://i.ibb.co.com/RpHTk4zQ/happy-bride-outdoors.jpg"
+                    alt="happy bride outdoors"></div>
+
+
+            <div class="item"><img
+                    src="https://i.ibb.co.com/chGwF1QX/closeup-shot-beautiful-wedding-bouquet-with-gorgeous-white-roses.jpg"
+                    alt="closeup shot beautiful wedding bouquet with gorgeous white roses"></div>
+
+            <div class="item"><img
+                    src="https://i.ibb.co.com/5WfytJwD/closeup-pink-roses-put-bouquet-tied-with-chair.jpg"
+                    alt="closeup pink roses put bouquet tied with chair"></div>
+
+            <div class="item"><img src="https://i.ibb.co.com/TMzM2DxC/bridal-veil-covers-up-wedding-roses-bouquet.jpg"
+                    alt="bridal veil covers up wedding roses bouquet"></div>
+        </div>
+    </div>
+
+</body>
+
+</html>
