@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pure CSS Parallax Demo</title>
+    <style>
+        /* * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        } */
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+
+            line-height: 1.6;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            padding: 2rem 1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        section {
+            position: relative;
+
+            /* Each section takes full viewport height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        /* Parallax background layers */
+        .parallax {
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            /* The magic line for parallax */
+        }
+
+
+        .bg-1 {
+            background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+
+        }
+
+        .bg-2 {
+            background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+
+        }
+
+        .bg-3 {
+            background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+
+        }
+
+        /* Overlay to make text readable */
+        .content {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            max-width: 800px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Normal non-parallax section for contrast */
+        .no-parallax {
+            background: linear-gradient(to bottom, #2c3e50, #3498db);
+        }
+
+        @media screen and (max-width: 768px) {
+
+            /* On mobile, fixed backgrounds often don't work well → fallback to scroll */
+            .parallax {
+                background-attachment: scroll;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="parallax bg-1">
+        <div class="content">
+            <h1>Pure CSS Parallax Effect</h1>
+            <p>Scroll down to see the background move slower than the text — creating depth with zero JavaScript.</p>
+        </div>
+    </section>
+
+    <section class="no-parallax">
+        <div class="content">
+            <h2>Normal Scrolling Section</h2>
+            <p>This section has no parallax — just regular scrolling to separate the effects and show contrast.</p>
+        </div>
+    </section>
+
+    <section class="parallax bg-2">
+        <div class="content">
+            <h2>Second Parallax Layer</h2>
+            <p>The forest moves more slowly, giving a nice sense of distance and immersion.</p>
+        </div>
+    </section>
+
+    <section class="no-parallax">
+        <div class="content">
+            <h2>Another Regular Section</h2>
+            <p>Use these breaks to add content, features, or calls-to-action.</p>
+        </div>
+    </section>
+
+    <section class="parallax bg-3">
+        <div class="content">
+            <h2>Final Parallax Scene</h2>
+            <p>Misty mountains — enjoy the depth! Pure CSS magic.</p>
+        </div>
+    </section>
+
+</body>
+
+</html>
