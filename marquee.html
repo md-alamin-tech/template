@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fast Image Marquee</title>
+    <title>Fast Image Marquee – Clean</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: #0a0a15;
-            min-height: 100vh;
+            background: white;
+            min-height: 370px;
             overflow-x: hidden;
         }
-
         .marquee-container {
             position: relative;
             width: 100%;
-            height: 240px;
-            /* slightly taller for better look */
+            height: 150px;
             overflow: hidden;
-            margin: 60px 0;
+            margin: 5px 0;
         }
-
         .marquee-track {
             position: absolute;
             top: 0;
@@ -32,194 +28,85 @@
             align-items: center;
             will-change: transform;
         }
-
-        /* Faster marquee - right to left */
         .marquee-rtl {
             animation: scroll-rtl 32s linear infinite;
-            /* was 50s → now faster */
         }
-
-        /* Faster marquee - left to right */
         .marquee-ltr {
             animation: scroll-ltr 30s linear infinite;
-            /* was 46s → now faster */
         }
-
         @keyframes scroll-rtl {
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(-50%);
-            }
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
         }
-
         @keyframes scroll-ltr {
-            from {
-                transform: translateX(-50%);
-            }
-
-            to {
-                transform: translateX(0);
-            }
+            from { transform: translateX(-50%); }
+            to   { transform: translateX(0); }
         }
-
         .item {
             flex-shrink: 0;
-            height: 88%;
-            /* better proportion */
-            margin: 0 70px;
-            /* more space between images */
-            border-radius: 20px;
+            height: 90%;               /* slightly less than container → breathing room */
+            margin: 0 5px;
+            border-radius: 12px;
             overflow: hidden;
             transition: all 0.35s ease;
-            /* smooth hover transition */
-            box-shadow:
-                0 0 35px rgba(0, 255, 255, 0.18),
-                inset 0 0 25px rgba(255, 0, 255, 0.1);
+            border: 1px solid #909090; /* light cyan border – change color if desired */
         }
-
         .item img {
             height: 100%;
-            width: auto;
-            object-fit: cover;
+            width: 300px;
+            object-fit: contain;
             display: block;
+            background-color: black;
         }
-
-        /* Fixed & improved hover effect */
-        .item:hover {
-            transform: scale(1.12);
-            /* bigger but not too much */
-            box-shadow:
-                0 0 70px rgba(0, 255, 255, 0.55),
-                0 0 120px rgba(255, 0, 255, 0.35),
-                inset 0 0 40px rgba(255, 255, 255, 0.15);
+         .item:hover {
+            transform: scale(1.03);
+            border-color: hsl(180, 3%, 81%);     /* pinkish on hover for fun contrast */
             z-index: 10;
-            /* makes sure hovered image stays on top */
-        }
-
-        /* Prevent hover from messing up the animation */
-        .marquee-track:hover .item {
+        } 
+        /* Optional: pause animation when hovering the whole track */
+        /* .marquee-track:hover {
             animation-play-state: paused;
-            /* optional: pause when hovering */
-        }
-
-        .marquee-track:hover .item:hover {
-            animation-play-state: running;
-            /* keep moving even when hovering others */
-        }
+        } */
     </style>
 </head>
-
 <body>
 
-    <!-- Right to Left - Faster -->
+    <!-- Right to Left -->
     <div class="marquee-container">
         <div class="marquee-track marquee-rtl">
-
-            <div class="item"><img
-                    src="https://i.ibb.co.com/4wwFygLn/outdoors-evening-ceremony-bride-with-traditional-wedding-cake.jpg"
-                    alt="outdoors evening ceremony bride with traditional wedding cake"></div>
-
-            <div class="item"><img src="https://i.ibb.co.com/xS39WZPJ/chair-park.jpg" alt="chair park"></div>
-
-
-            <div class="item"><img
-                    src="https://i.ibb.co.com/chGGKRDZ/sunshine-crosses-garlands-greenery-hanging-courtyard.jpg"
-                    alt="sunshine crosses garlands greenery hanging courtyard"></div>
-
-
-            <div class="item"><img src="https://i.ibb.co.com/Xkf42B0n/frankenstein-sitting-table-full-shot.jpg"
-                    alt="frankenstein sitting table full shot"></div>
-
-            <div class="item"><img src="https://i.ibb.co.com/BVH28j4Y/full-shot-people-sitting-table-indoors.jpg"
-                    alt="full shot people sitting table indoors"></div>
-
-            <div class="item"><img src="https://i.ibb.co.com/S4p9tHnh/garden-red-gumboots.jpg"
-                    alt="garden red gumboots"></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/225fda5c-acbf-4015-88e9-a71b7a22f722/Untitled+design+%282%29.png?content-type=image%2Fpng" alt=""></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/c5c83f75-5e52-4d2b-9ee6-ac7194ffe398/Untitled+design+%288%29.png?content-type=image%2Fpng" alt=""></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/f1f5c00a-fec0-42d6-b4a4-75f104d1239f/Untitled+design+%285%29.png?content-type=image%2Fpng" alt=""></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/5c0086b6-7b0a-42f7-9218-e9b73da781ee/Untitled+design+%287%29.png?content-type=image%2Fpng" alt=""></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/60632cc7-cba4-495b-a66d-f9076f2b2695/Untitled+design+%284%29.png?content-type=image%2Fpng" alt=""></div>
+           
             <!-- Repeat for seamless loop -->
-
-
-            <div class="item"><img
-                    src="https://i.ibb.co.com/4wwFygLn/outdoors-evening-ceremony-bride-with-traditional-wedding-cake.jpg"
-                    alt="outdoors evening ceremony bride with traditional wedding cake"></div>
-
-            <div class="item"><img src="https://i.ibb.co.com/xS39WZPJ/chair-park.jpg" alt="chair park"></div>
-
-
-            <div class="item"><img
-                    src="https://i.ibb.co.com/chGGKRDZ/sunshine-crosses-garlands-greenery-hanging-courtyard.jpg"
-                    alt="sunshine crosses garlands greenery hanging courtyard"></div>
-
-
-            <div class="item"><img src="https://i.ibb.co.com/Xkf42B0n/frankenstein-sitting-table-full-shot.jpg"
-                    alt="frankenstein sitting table full shot"></div>
-
-            <div class="item"><img src="https://i.ibb.co.com/BVH28j4Y/full-shot-people-sitting-table-indoors.jpg"
-                    alt="full shot people sitting table indoors"></div>
-
-            <div class="item"><img src="https://i.ibb.co.com/S4p9tHnh/garden-red-gumboots.jpg"
-                    alt="garden red gumboots"></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/225fda5c-acbf-4015-88e9-a71b7a22f722/Untitled+design+%282%29.png?content-type=image%2Fpng" alt=""></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/c5c83f75-5e52-4d2b-9ee6-ac7194ffe398/Untitled+design+%288%29.png?content-type=image%2Fpng" alt=""></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/f1f5c00a-fec0-42d6-b4a4-75f104d1239f/Untitled+design+%285%29.png?content-type=image%2Fpng" alt=""></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/5c0086b6-7b0a-42f7-9218-e9b73da781ee/Untitled+design+%287%29.png?content-type=image%2Fpng" alt=""></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/60632cc7-cba4-495b-a66d-f9076f2b2695/Untitled+design+%284%29.png?content-type=image%2Fpng" alt=""></div>
         </div>
     </div>
 
-    <!-- Left to Right - Faster -->
+    <!-- Left to Right -->
     <div class="marquee-container">
         <div class="marquee-track marquee-ltr">
-            <div class="item"><img
-                    src="https://i.ibb.co.com/Dqtdsbf/beautiful-brunette-bride-near-archway-made-blue-hydrangea-ruscus-wedding-day.jpg"
-                    alt="beautiful brunette bride near archway made blue hydrangea ruscus wedding day"></div>
-
-
-            <div class="item"><img
-                    src="https://i.ibb.co.com/V0VddWTL/stunning-bride-beige-dress-stands-before-wedding-altar-outside.jpg"
-                    alt="stunning bride beige dress stands before wedding altar outside"></div>
-
-
-            <div class="item"><img src="https://i.ibb.co.com/RpHTk4zQ/happy-bride-outdoors.jpg"
-                    alt="happy bride outdoors"></div>
-
-
-            <div class="item"><img
-                    src="https://i.ibb.co.com/chGwF1QX/closeup-shot-beautiful-wedding-bouquet-with-gorgeous-white-roses.jpg"
-                    alt="closeup shot beautiful wedding bouquet with gorgeous white roses"></div>
-
-            <div class="item"><img
-                    src="https://i.ibb.co.com/5WfytJwD/closeup-pink-roses-put-bouquet-tied-with-chair.jpg"
-                    alt="closeup pink roses put bouquet tied with chair"></div>
-
-            <div class="item"><img src="https://i.ibb.co.com/TMzM2DxC/bridal-veil-covers-up-wedding-roses-bouquet.jpg"
-                    alt="bridal veil covers up wedding roses bouquet"></div>
+             <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/576d443f-60d7-49c7-8178-26845fe5a73e/Untitled+design+%286%29.png?content-type=image%2Fpng" alt=""></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/8b3e29b3-519a-48f7-a804-282d1d77a41c/Untitled+design+%281%29.png?content-type=image%2Fpng" alt=""></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/6ed43109-4d6c-4f84-a5ed-61f72798a174/Untitled+design+%283%29.png?content-type=image%2Fpng" alt=""></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/0ccc2d93-cdd9-4c1c-80de-6cc4d42ff489/Untitled+design+%289%29.png?content-type=image%2Fpng" alt=""></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/1863f1a0-9bb9-4167-960e-337823e81438/Untitled+design+%2810%29.png?content-type=image%2Fpng" alt=""></div>
 
             <!-- Repeat for seamless loop -->
-            <div class="item"><img
-                    src="https://i.ibb.co.com/Dqtdsbf/beautiful-brunette-bride-near-archway-made-blue-hydrangea-ruscus-wedding-day.jpg"
-                    alt="beautiful brunette bride near archway made blue hydrangea ruscus wedding day"></div>
-
-
-            <div class="item"><img
-                    src="https://i.ibb.co.com/V0VddWTL/stunning-bride-beige-dress-stands-before-wedding-altar-outside.jpg"
-                    alt="stunning bride beige dress stands before wedding altar outside"></div>
-
-
-            <div class="item"><img src="https://i.ibb.co.com/RpHTk4zQ/happy-bride-outdoors.jpg"
-                    alt="happy bride outdoors"></div>
-
-
-            <div class="item"><img
-                    src="https://i.ibb.co.com/chGwF1QX/closeup-shot-beautiful-wedding-bouquet-with-gorgeous-white-roses.jpg"
-                    alt="closeup shot beautiful wedding bouquet with gorgeous white roses"></div>
-
-            <div class="item"><img
-                    src="https://i.ibb.co.com/5WfytJwD/closeup-pink-roses-put-bouquet-tied-with-chair.jpg"
-                    alt="closeup pink roses put bouquet tied with chair"></div>
-
-            <div class="item"><img src="https://i.ibb.co.com/TMzM2DxC/bridal-veil-covers-up-wedding-roses-bouquet.jpg"
-                    alt="bridal veil covers up wedding roses bouquet"></div>
+           <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/576d443f-60d7-49c7-8178-26845fe5a73e/Untitled+design+%286%29.png?content-type=image%2Fpng" alt=""></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/8b3e29b3-519a-48f7-a804-282d1d77a41c/Untitled+design+%281%29.png?content-type=image%2Fpng" alt=""></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/6ed43109-4d6c-4f84-a5ed-61f72798a174/Untitled+design+%283%29.png?content-type=image%2Fpng" alt=""></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/0ccc2d93-cdd9-4c1c-80de-6cc4d42ff489/Untitled+design+%289%29.png?content-type=image%2Fpng" alt=""></div>
+            <div class="item"><img src="https://images.squarespace-cdn.com/content/5e2b2aabc276d00a24c27a9f/1863f1a0-9bb9-4167-960e-337823e81438/Untitled+design+%2810%29.png?content-type=image%2Fpng" alt=""></div>
+            
         </div>
     </div>
 
 </body>
-
 </html>
