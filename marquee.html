@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fast Image Marquee – Clean</title>
+    <title>Image Marquee</title>
     <style>
         body {
             margin: 0;
@@ -42,31 +42,45 @@
             from { transform: translateX(-50%); }
             to   { transform: translateX(0); }
         }
+        @media (max-width: 768px) {
+        .marquee-rtl { animation-duration: 18s; }
+        .marquee-ltr { animation-duration: 16s; }
+        }
+
+        @media (max-width: 768px) {
+    .marquee-container {
+        height: 110px;
+    }
+    .item {
+        height: 82%;
+        margin: 0 12px;
+    }
+    .item img {
+        width: 150px !important;        
+    }
+}
         .item {
             flex-shrink: 0;
-            height: 90%;               /* slightly less than container → breathing room */
+            height: 90%;               
             margin: 0 5px;
             border-radius: 12px;
             overflow: hidden;
             transition: all 0.35s ease;
-            border: 1px solid #909090; /* light cyan border – change color if desired */
+            border: 1px solid #bcbbbb; 
         }
         .item img {
             height: 100%;
             width: 300px;
             object-fit: contain;
             display: block;
-            background-color: black;
+            background-color: #cc0000;
         }
          .item:hover {
             transform: scale(1.03);
-            border-color: hsl(180, 3%, 81%);     /* pinkish on hover for fun contrast */
+            border-color: hsl(180, 3%, 81%);   
             z-index: 10;
         } 
-        /* Optional: pause animation when hovering the whole track */
-        /* .marquee-track:hover {
-            animation-play-state: paused;
-        } */
+       
     </style>
 </head>
 <body>
