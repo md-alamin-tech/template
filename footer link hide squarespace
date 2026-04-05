@@ -1,0 +1,8 @@
+/* footer decoration  */
+#block-yui_3_17_2_1_1775210097888_3094 a,
+#block-yui_3_17_2_1_1775210097888_3094 a:hover,
+#block-yui_3_17_2_1_1775210097888_3094 a:visited {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
