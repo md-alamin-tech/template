@@ -1,0 +1,286 @@
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400&family=Familjen+Grotesk:wght@400;500&display=swap" rel="stylesheet"/>
+
+<style>
+  .mim-stats-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .mim-divider {
+    width: 1px;
+    height: 60px;
+    background: #ccc;
+    flex-shrink: 0;
+  }
+
+  .mim-stat-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .mim-stat-item:nth-child(1) { transition-delay: 0.1s; }
+  .mim-stat-item:nth-child(3) { transition-delay: 0.3s; }
+  .mim-stat-item:nth-child(5) { transition-delay: 0.5s; }
+
+  /* triggered by JS when in view */
+  .mim-stats-grid.mim-visible .mim-stat-item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mim-stat-number {
+    font-family: 'Playfair Display', serif;
+    font-weight: 300;
+    font-size: clamp(44px, 6vw, 82px);
+    letter-spacing: -0.02em;
+    color: #111;
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    white-space: nowrap;
+  }
+
+  .mim-prefix {
+    font-size: 0.62em;
+  }
+
+  .mim-counter-wrap {
+    display: inline-flex;
+    overflow: hidden;
+    height: 1.08em;
+    align-items: flex-start;
+  }
+
+  .mim-digit-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mim-digit-col span {
+    display: block;
+    height: 1.08em;
+    line-height: 1.08em;
+  }
+
+  /* animation classes added by JS on scroll */
+  .mim-digit-col.mim-spin-1 {
+    animation: mimSlot1 5s cubic-bezier(0.12, 0.8, 0.2, 1) forwards;
+    animation-delay: var(--delay, 0s);
+  }
+  .mim-digit-col.mim-spin-2 {
+    animation: mimSlot2 5s cubic-bezier(0.12, 0.8, 0.2, 1) forwards;
+    animation-delay: var(--delay, 0s);
+  }
+  .mim-digit-col.mim-spin-0 {
+    animation: mimSlot0 5s cubic-bezier(0.12, 0.8, 0.2, 1) forwards;
+    animation-delay: var(--delay, 0s);
+  }
+  .mim-digit-col.mim-spin-5 {
+    animation: mimSlot5 5s cubic-bezier(0.12, 0.8, 0.2, 1) forwards;
+    animation-delay: var(--delay, 0s);
+  }
+
+  /* final digit 1 → -(101)*1.08em */
+  @keyframes mimSlot1 {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-109.08em); }
+  }
+  /* final digit 2 → -(102)*1.08em */
+  @keyframes mimSlot2 {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-110.16em); }
+  }
+  /* final digit 0 → -(100)*1.08em */
+  @keyframes mimSlot0 {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-108em); }
+  }
+  /* final digit 5 → -(105)*1.08em */
+  @keyframes mimSlot5 {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-113.4em); }
+  }
+
+  .mim-decimal {
+    font-size: 0.9em;
+    padding: 0 1px;
+  }
+
+  .mim-suffix {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 0.28em;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    margin-left: 6px;
+    padding-bottom: 10px;
+    align-self: flex-end;
+    color: #444;
+    text-transform: uppercase;
+  }
+
+  .mim-stat-label {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #999;
+    margin-top: 12px;
+  }
+
+  @media (max-width: 600px) {
+    .mim-stats-grid { flex-direction: column; gap: 36px; }
+    .mim-divider    { width: 48px; height: 1px; }
+  }
+</style>
+
+<div class="mim-stats-grid" id="mimStatsGrid">
+
+  <!-- $12 MILLION+ -->
+  <div class="mim-stat-item">
+    <div class="mim-stat-number">
+      <span class="mim-prefix">$</span>
+      <div class="mim-counter-wrap">
+        <div class="mim-digit-col" data-spin="1" style="--delay:0.1s;">
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span>
+        </div>
+        <div class="mim-digit-col" data-spin="2" style="--delay:0.1s;">
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span>
+        </div>
+      </div>
+      <span class="mim-suffix">Million+</span>
+    </div>
+    <div class="mim-stat-label">Portfolio Value</div>
+  </div>
+
+  <div class="mim-divider"></div>
+
+  <!-- 20.3K SQ. FT. -->
+  <div class="mim-stat-item">
+    <div class="mim-stat-number">
+      <div class="mim-counter-wrap">
+        <div class="mim-digit-col" data-spin="2" style="--delay:0.3s;">
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span>
+        </div>
+        <div class="mim-digit-col" data-spin="0" style="--delay:0.3s;">
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span>
+        </div>
+      </div>
+      <span class="mim-decimal">.3</span>
+      <span class="mim-suffix">K Sq. Ft.</span>
+    </div>
+    <div class="mim-stat-label">Total Portfolio Size</div>
+  </div>
+
+  <div class="mim-divider"></div>
+
+  <!-- $15 MILLION+ -->
+  <div class="mim-stat-item">
+    <div class="mim-stat-number">
+      <span class="mim-prefix">$</span>
+      <div class="mim-counter-wrap">
+        <div class="mim-digit-col" data-spin="1" style="--delay:0.5s;">
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span>
+        </div>
+        <div class="mim-digit-col" data-spin="5" style="--delay:0.5s;">
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+          <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
+      </div>
+      <span class="mim-suffix">Million+</span>
+    </div>
+    <div class="mim-stat-label">Total Transactions</div>
+  </div>
+
+</div>
+
+<script>
+  (function() {
+    var grid = document.getElementById('mimStatsGrid');
+    var fired = false;
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !fired) {
+          fired = true;
+          // Add visible class to fade in stat items
+          grid.classList.add('mim-visible');
+          // Add spin class to each digit col based on data-spin value
+          var cols = grid.querySelectorAll('.mim-digit-col');
+          cols.forEach(function(col) {
+            var spin = col.getAttribute('data-spin');
+            col.classList.add('mim-spin-' + spin);
+          });
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+
+    observer.observe(grid);
+  })();
+</script>
