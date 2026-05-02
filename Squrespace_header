@@ -1,0 +1,16 @@
+@media screen and (min-width: 768px) {
+  /* Logo - margin left 350px */
+  .header-title-logo,
+  .site-title,
+  header .logo {
+    margin-left: 128px !important;
+  }
+
+  /* Book a Call button - margin right 350px */
+  .header-actions,
+  .header-nav-cta,
+  header .btn,
+  .header-actions-right {
+    margin-right: 78px !important;
+  }
+}
