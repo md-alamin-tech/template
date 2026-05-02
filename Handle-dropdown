@@ -1,0 +1,19 @@
+
+/* Dropdown menu - left align & transparent background */
+.header-nav-folder-content {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  left: 0 !important;
+  
+}
+
+.header-nav-folder-item a {
+  text-align: left !important;
+  justify-content: flex-start !important;
+}
+
+.header-nav-folder-content .header-nav-folder-item {
+  text-align: left !important;
+}
