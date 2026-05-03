@@ -1,19 +1,33 @@
-
-/* Dropdown menu - left align & transparent background */
-.header-nav-folder-content {
+<style>
+/* ENGINE - Outline button  */
+.header-nav-item a[href="/engine"] {
   background: transparent !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
+  color: #fff !important;
+  padding: 8px 18px !important;
+  border-radius: 10px !important;
+  font-weight: 400 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  transition: all 0.25s !important;
+  border: 1.5px solid #fff !important;
+}
+.header-nav-item a[href="/engine"]:hover {
+  background: rgba(255,255,255,0.12) !important;
+}
+
+/* SENTINEL - Blue filled button  */
+.header-nav-item a[href="/sentinel"] {
+  background: #1a73e8 !important;
+  color: #fff !important;
+  padding: 9px 20px !important;
+  border-radius: 10px !important;
+  font-weight: 400 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  transition: background 0.25s !important;
   border: none !important;
-  left: 0 !important;
-  
 }
-
-.header-nav-folder-item a {
-  text-align: left !important;
-  justify-content: flex-start !important;
+.header-nav-item a[href="/sentinel"]:hover {
+  background: #1558b0 !important;
 }
-
-.header-nav-folder-content .header-nav-folder-item {
-  text-align: left !important;
-}
+</style>
