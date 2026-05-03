@@ -1,0 +1,55 @@
+<style>
+/* SERVICES dropdown fix - no line break */
+.header-nav-item--dropdown .header-nav-item__label {
+  white-space: nowrap !important;
+}
+
+.header-nav-folder-title {
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+/* ENGINE button - Primary style, 10px radius */
+.header-nav-item a[href*="/engine"],
+.header-nav-item a[href*="engine"] {
+  background-color: #1a73e8 !important;
+  color: #ffffff !important;
+  padding: 10px 22px !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  border: none !important;
+  transition: background-color 0.25s ease !important;
+  margin-left: 4px !important;
+}
+
+.header-nav-item a[href*="/engine"]:hover,
+.header-nav-item a[href*="engine"]:hover {
+  background-color: #1558b0 !important; /* darker shade of blue */
+}
+
+/* SENTINEL button - Secondary style, 10px radius */
+.header-nav-item a[href*="/sentinel"],
+.header-nav-item a[href*="sentinel"] {
+  background-color: #e63946 !important;
+  color: #ffffff !important;
+  padding: 10px 22px !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  border: none !important;
+  transition: background-color 0.25s ease !important;
+  margin-left: 4px !important;
+}
+
+.header-nav-item a[href*="/sentinel"]:hover,
+.header-nav-item a[href*="sentinel"]:hover {
+  background-color: #b52d38 !important; /* darker shade of red */
+}
+</style>
