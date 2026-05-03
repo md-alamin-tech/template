@@ -1,0 +1,31 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "আপনার কোম্পানির নাম",
+  "url": "https://yoursite.com",
+  "founder": {
+    "@type": "Person",
+    "name": "Founder-এর নাম",
+    "jobTitle": "CEO & Founder"
+  },
+  "description": "আপনার সার্ভিসের বিবরণ"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "আপনার সার্ভিস কী?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "আমরা Engine ও Sentinel সার্ভিস প্রদান করি..."
+      }
+    }
+  ]
+}
+</script>
