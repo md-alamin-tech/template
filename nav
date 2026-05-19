@@ -1,0 +1,19 @@
+/* ── NAV ── */
+.header-nav-list a {
+  padding: 10px 0 !important;
+  transition: all 0.1s ease-in;
+  background-image: none !important;
+}
+.header-nav-item a:hover {
+  border-radius: 8px;
+  padding: 10px 20px !important;
+  background: #EBF4EB !important;
+  background-image: none !important;
+  text-decoration: none !important;
+}
+.header-nav-item--active a {
+  border-radius: 8px;
+  padding: 10px 20px !important;
+  background: #EBF4EB !important;
+  background-image: none !important;
+}
