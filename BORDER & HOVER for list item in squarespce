@@ -1,0 +1,10 @@
+.user-items-list-item-container[data-section-id="6a0bda09be7e6233dd88499d"] .list-item {
+  border: 1px solid #DDE4EA;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+section[data-section-id="6a0bda09be7e6233dd88499d"] .list-item[data-is-card-enabled='true']:hover {
+  border-color: #3A6B35 !important;
+  box-shadow: 0 8px 32px rgba(58, 107, 53, 0.1) !important;
+  transform: translateY(-3px) !important;
+}
