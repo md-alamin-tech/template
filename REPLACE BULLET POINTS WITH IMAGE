@@ -1,0 +1,13 @@
+ul[data-rte-list="default"] li > *:first-child::before {
+  content: '' !important;
+  background-image: url(https://images.squarespace-cdn.com/content/69def82a20cfd949c488dd0a/263bc5cb-b6f1-42e8-a20f-e50d3529db5f/check.png?content-type=image%2Fpng) !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  display: inline-block !important;
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  margin-right: 12px !important;
+  vertical-align: middle !important;
+}
