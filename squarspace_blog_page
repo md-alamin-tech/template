@@ -1,0 +1,6 @@
+article{
+  padding: 20px ;
+  background-color: #ffffff!important;
+  border: 0.5px solid #d0d5dd !important;
+ border-radius: 5px !important;
+}
