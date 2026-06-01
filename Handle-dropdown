@@ -1,17 +1,21 @@
-#services{
+
+#contractor-services, #msp-services{
   padding: 30px 20px;
  
   border-radius: 20px;
 }
 
-#services .header-nav-folder-item{
+#contractor-services.header-nav-folder-item {
   margin-bottom: 5px;
   display: flex;
   align-items: center;
-  justify-content: left;
+  justify-content: flex-start;
 }
 
 .header-nav-folder-content{
   right: auto !important;
   margin-left: -20px;
+text-align:left !important;
 }
+
+
