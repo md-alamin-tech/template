@@ -1,0 +1,30 @@
+//Faq
+
+#faq .accordion-item{
+  background: white; 
+  margin-bottom: 20px;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+  border-radius:20px;
+  box-shadow: 0 1px rgba(0,0,0,0.2);
+  transition: 
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+#faq .accordion-item:hover{
+  transform: translateX(6px);
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+}
+
+#faq h4{
+  text-transform: capitalize;
+  font-weight: 500 !important;
+  font-size: 19px;
+}
+#faq p{
+  color: #555555;
+}
+.accordion-item__title{
+  font-weight: 500 !important;
+}
