@@ -1,0 +1,8 @@
+.blog-basic-grid--container{
+  padding: 20px ;
+  background-color: white !important;
+}
+
+#itemPagination{
+  display:none;
+}
