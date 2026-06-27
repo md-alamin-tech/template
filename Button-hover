@@ -1,0 +1,39 @@
+/* button hover */
+
+#block-yui_3_17_2_1_1781152150264_24648 a,
+#block-8e134c045014505667a4 a,
+#block-ccc5b28ce62e646d3372 a {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+#block-yui_3_17_2_1_1781152150264_24648 a::before,
+#block-yui_3_17_2_1_1781152150264_24648 a::after,
+#block-8e134c045014505667a4 a::before,
+#block-8e134c045014505667a4 a::after,
+#block-ccc5b28ce62e646d3372 a::before,
+#block-ccc5b28ce62e646d3372 a::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  transition: all 0.35s ease;
+}
+
+#block-yui_3_17_2_1_1781152150264_24648 a::before,
+#block-8e134c045014505667a4 a::before,
+#block-ccc5b28ce62e646d3372 a::before {
+  top: 0;
+  left: 0;
+  border-top: 2px solid #E8B84A;
+  border-left: 2px solid #E8B84A;
+}
+
+#block-yui_3_17_2_1_1781152150264_24648 a::after,
+#block-8e134c045014505667a4 a::after,
+#block-ccc5b28ce62e646d3372 a::after {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid #E8B84A;
+  border-right: 2px solid #E8B84A;
+}
