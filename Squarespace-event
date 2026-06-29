@@ -1,0 +1,56 @@
+
+/* event page */
+.eventlist .eventlist-event.eventlist-event--past {
+  padding: 20px;
+  border: 1px solid #ccc;
+   border-radius: 5px;
+  background: #e5e5e5;
+}
+
+.eventlist .eventlist-event:not(.eventlist-event--past) {
+  border: 2px solid #ececec;
+  border-radius: 5px;
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+//---------------------------------
+
+.eventlist-event{
+    margin: 20px 0 0 0 !important;
+}
+
+.eventlist .eventlist-event:not(.eventlist-event--past):hover {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.10);
+  transform: translateY(-2px);
+}
+
+
+.eventlist-meta-item eventlist-meta-date event-meta-item .event-date{
+  display: none !important;
+}
+
+.eventlist-title{
+  margin: 0 0 !important;
+}
+
+.eventlist-meta, 
+.event-meta {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 0 !important; 
+  display: none !important; 
+}
+
+.eventlist-excerpt{
+  	margin: 0 0 5px 0;
+}
+
+.eventlist-column-info{
+  display: flex !important; 
+  flex-direction: column !important;
+  align-items: start !important; 
+  justify-content: center !important;
+}
