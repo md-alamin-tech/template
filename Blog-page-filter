@@ -1,0 +1,115 @@
+<div id="workshop-filters">
+  <select id="filter-category">
+    <option value="">All Categories</option>
+  </select>
+  <select id="filter-instructor">
+    <option value="">All Instructors</option>
+  </select>
+  <select id="filter-date">
+    <option value="">All Dates</option>
+    <option value="upcoming">Upcoming</option>
+    <option value="past">Past</option>
+  </select>
+</div>
+
+<style>
+#workshop-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+#workshop-filters select {
+  background: transparent;
+  color: #ffffff;
+  border-radius: 5px;
+  font-weight: 500;
+  border: 1px solid #ffffff;
+  font-family: Inter, sans-serif;
+  font-size: 15px;
+  padding: 10px 14px;
+  height: 42px;
+  box-sizing: border-box;
+  flex: 0 1 160px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+#workshop-filters select option {
+  background: #0a0a0a;
+  color: #ffffff;
+}
+@media (max-width: 600px) {
+  #workshop-filters {
+    flex-direction: column;
+  }
+  #workshop-filters select {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}
+</style>
+
+<script>
+(function () {
+  function initFilters() {
+    var items = document.querySelectorAll('article.blog-item');
+    if (!items.length) { setTimeout(initFilters, 300); return; }
+
+    var catSelect = document.getElementById('filter-category');
+    var instSelect = document.getElementById('filter-instructor');
+    var dateSelect = document.getElementById('filter-date');
+
+    var categories = new Set();
+    var instructors = new Set();
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+
+    items.forEach(function (item) {
+      var catEl = item.querySelector('.blog-categories');
+      var instEl = item.querySelector('.blog-author');
+      var dateEl = item.querySelector('time.blog-date');
+
+      if (catEl) categories.add(catEl.textContent.trim());
+      if (instEl) instructors.add(instEl.textContent.trim());
+
+      item.dataset.category = catEl ? catEl.textContent.trim() : '';
+      item.dataset.instructor = instEl ? instEl.textContent.trim() : '';
+
+      if (dateEl) {
+        var iso = dateEl.getAttribute('datetime');
+        var d = iso ? new Date(iso) : new Date(dateEl.textContent.trim());
+        item.dataset.timeline = (d >= today) ? 'upcoming' : 'past';
+      }
+    });
+
+    categories.forEach(function (c) {
+      var opt = document.createElement('option');
+      opt.value = c; opt.textContent = c;
+      catSelect.appendChild(opt);
+    });
+    instructors.forEach(function (i) {
+      var opt = document.createElement('option');
+      opt.value = i; opt.textContent = i;
+      instSelect.appendChild(opt);
+    });
+
+    function applyFilters() {
+      var cat = catSelect.value, inst = instSelect.value, date = dateSelect.value;
+      items.forEach(function (item) {
+        var match =
+          (!cat || item.dataset.category === cat) &&
+          (!inst || item.dataset.instructor === inst) &&
+          (!date || item.dataset.timeline === date);
+        item.style.display = match ? '' : 'none';
+      });
+    }
+
+    catSelect.addEventListener('change', applyFilters);
+    instSelect.addEventListener('change', applyFilters);
+    dateSelect.addEventListener('change', applyFilters);
+  }
+
+  initFilters();
+})();
+</script>
