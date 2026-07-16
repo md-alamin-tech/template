@@ -1,0 +1,4 @@
+.sqs-blockStatus,
+    .sqs-block .removed-script {
+        display: none !important;
+    }
