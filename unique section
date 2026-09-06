@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MFSI Standards</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    .sqs-accordion-wrapper {
+      width: 100%;
+      display: flex;
+      align-items: start;
+      justify-content: center;
+      font-family: inherit; /* Inherits font from Squarespace site */
+      overflow: hidden;
+      background: #000;
+    }
+
+    /* ── DESKTOP ── */
+    .accordion {
+      width: 100%;
+      height: 540px;
+      overflow: hidden;
+    }
+
+    .accordion ul {
+      width: 100%;
+      height: 100%;
+      display: table;
+      table-layout: fixed;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .accordion ul li {
+      display: table-cell;
+      vertical-align: top;
+      position: relative;
+      width: 20%;
+      height: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      overflow: hidden;
+      cursor: pointer;
+      transition: width 700ms cubic-bezier(.77,0,.18,1);
+    }
+
+    .accordion ul:hover li        { width: 12%; }
+    .accordion ul:hover li:hover  { width: 52%; cursor: default; }
+
+    /* Topic-relevant Marine Images */
+    .accordion ul li:nth-child(1)  { background-image: url('https://images.squarespace-cdn.com/content/6a8dacae915a7c138cb5fd78/07b941b8-5ff0-432c-b09f-8f06a8ff98d9/8692.jpg?content-type=image%2Fjpeg'); } /* Paint Protection / Yacht Hull */
+    .accordion ul li:nth-child(2)  { background-image: url('https://images.squarespace-cdn.com/content/6a8dacae915a7c138cb5fd78/530e9fed-8420-4703-8db9-e407e67f7f9c/19742.jpg?content-type=image%2Fjpeg'); } /* Color Change / Vibrant Boat Detail */
+    .accordion ul li:nth-child(3)  { background-image: url('https://images.squarespace-cdn.com/content/6a8dacae915a7c138cb5fd78/b39057b0-0ee1-40c7-9b90-dc8e9c8aa1ea/photo_2026-08-26_12-09-26.jpg?content-type=image%2Fjpeg'); } /* Hull Protection / Heavy Vessel Surface */
+    .accordion ul li:nth-child(4)  { background-image: url('https://images.squarespace-cdn.com/content/6a8dacae915a7c138cb5fd78/b55c46ef-c8aa-41d8-a0a3-2c2e768b0b1e/photo_2026-08-26_12-09-23.jpg?content-type=image%2Fjpeg'); } /* Adhesive / Extreme Water Immersion */
+    .accordion ul li:nth-child(5)  { background-image: url('https://images.squarespace-cdn.com/content/6a8dacae915a7c138cb5fd78/206211d3-d259-4a03-ae70-2858c8f6198d/960.jpg?content-type=image%2Fjpeg'); } /* Surface Prep / Pristine Marine Surface */
+
+    .accordion ul li::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(11, 40, 70, 0.85);
+      transition: opacity 500ms ease;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .accordion ul:hover li:hover::before { opacity: 0; }
+
+    .accordion ul li::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top,
+        rgba(3, 15, 29, 0.95) 0%,
+        rgba(3, 15, 29, 0.2) 50%,
+        transparent 80%);
+      opacity: 0;
+      transition: opacity 500ms ease 150ms;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .accordion ul:hover li:hover::after { opacity: 1; }
+
+    /* Vertical label font size increased */
+    .card-label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-90deg);
+      white-space: nowrap;
+      font-family: inherit; /* Inherits site font */
+      font-weight: 600;
+      font-size: 26px; /* Increased size as requested */
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.9);
+      z-index: 4;
+      opacity: 1;
+      transition: opacity 250ms ease, transform 600ms cubic-bezier(.77,0,.18,1);
+      pointer-events: none;
+    }
+    .accordion ul:hover li:hover .card-label {
+      opacity: 0;
+      transform: translate(-50%, -50%) rotate(-90deg) scale(.7);
+    }
+
+    .card-num {
+      position: absolute;
+      font-family: inherit; /* Inherits site font */
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      color: rgba(255,255,255,.6);
+      z-index: 4;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      transition:
+        bottom 500ms cubic-bezier(.77,0,.18,1),
+        left 500ms cubic-bezier(.77,0,.18,1),
+        right 500ms cubic-bezier(.77,0,.18,1),
+        transform 500ms cubic-bezier(.77,0,.18,1),
+        opacity 300ms ease;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .accordion ul:hover li:hover .card-num {
+      bottom: 16px;
+      left: auto;
+      right: 16px;
+      transform: none;
+    }
+
+    .card-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 24px 24px 20px;
+      z-index: 4;
+      opacity: 0;
+      transform: translateY(12px);
+      transition:
+        opacity 380ms ease 280ms,
+        transform 380ms cubic-bezier(.22,.68,0,1.2) 280ms;
+      pointer-events: none;
+    }
+    .accordion ul:hover li:hover .card-content {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card-content h2 {
+      font-family: inherit; /* Inherits site font */
+      font-weight: 600;
+      font-size: clamp(20px, 2.5vw, 28px);
+      color: #fff;
+      letter-spacing: .02em;
+      line-height: 1.15;
+      margin-bottom: 0;
+    }
+
+    .card-content p {
+      font-family: inherit; /* Inherits site font */
+      font-size: 13px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0);
+      max-height: 0;
+      overflow: hidden;
+      margin-top: 0;
+      transition:
+        color 300ms ease 100ms,
+        max-height 350ms ease,
+        margin-top 280ms ease;
+    }
+    .accordion ul:hover li:hover .card-content p {
+      color: rgba(255,255,255,.8);
+      max-height: 80px;
+      margin-top: 8px;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      .accordion {
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .accordion ul {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+      }
+
+      .accordion ul li,
+      .accordion ul:hover li {
+        display: block;
+        width: 100% !important;
+        flex: 1;
+        min-height: 0;
+        background-size: cover;
+        background-position: center;
+        transition: flex 600ms cubic-bezier(.77,0,.18,1);
+        cursor: pointer;
+        overflow: hidden;
+      }
+
+      .accordion ul li.active {
+        flex: 4;
+      }
+
+      .accordion ul li::before {
+        background: rgba(11, 40, 70, 0.85);
+        opacity: 1;
+        transition: opacity 400ms ease;
+      }
+      .accordion ul li.active::before { opacity: 0; }
+
+      .accordion ul li::after {
+        opacity: 0;
+        transition: opacity 400ms ease 100ms;
+      }
+      .accordion ul li.active::after { opacity: 1; }
+
+      .card-label {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(0deg);
+        font-size: 18px; /* Increased mobile size as well */
+        letter-spacing: .12em;
+        transition: opacity 250ms ease, transform 400ms ease;
+        white-space: nowrap;
+      }
+      .accordion ul li.active .card-label {
+        opacity: 0;
+        transform: translate(-50%, -60%) rotate(0deg);
+      }
+
+      .card-num {
+        top: 50%;
+        bottom: auto;
+        left: auto;
+        right: 14px;
+        transform: translateY(-50%);
+        font-size: 12px;
+        transition: opacity 250ms ease, top 400ms ease, bottom 400ms ease, transform 400ms ease;
+      }
+      .accordion ul li.active .card-num {
+        top: auto;
+        bottom: 14px;
+        right: 16px;
+        transform: none;
+      }
+
+      .card-content {
+        padding: 16px 16px 14px;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 320ms ease 200ms, transform 320ms cubic-bezier(.22,.68,0,1.2) 200ms;
+      }
+      .accordion ul li.active .card-content {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .card-content h2 {
+        font-size: 18px;
+      }
+
+      .card-content p {
+        color: rgba(255,255,255,0);
+        max-height: 0;
+        margin-top: 0;
+        transition: color 300ms ease 100ms, max-height 350ms ease, margin-top 280ms ease;
+      }
+      .accordion ul li.active .card-content p {
+        color: rgba(255,255,255,.8);
+        max-height: 80px;
+        margin-top: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sqs-accordion-wrapper">
+  <div class="accordion">
+    <ul id="mfsiAccordionList"></ul>
+  </div>
+</div>
+
+<script>
+const DATA = [
+  { 
+    code: "MFSI 1001", 
+    label: "MFSI 1001", 
+    title: "Marine Paint Protection Film Standard", 
+    desc: "Standard specifications for hydrophobic clarity, UV resistance, and surface durability of paint protection films.", 
+    num: "01" 
+  },
+  { 
+    code: "MFSI 1002", 
+    label: "MFSI 1002", 
+    title: "Color Change Marine Film Standard", 
+    desc: "Guidelines for color stability, finish consistency, and seamless application on marine vessels.", 
+    num: "02" 
+  },
+  { 
+    code: "MFSI 1003", 
+    label: "MFSI 1003", 
+    title: "Hull Abrasion Protection Film Standard", 
+    desc: "Impact resistance standards designed to protect ship hulls from docking wear and underwater debris.", 
+    num: "03" 
+  },
+  { 
+    code: "MFSI 1004", 
+    label: "MFSI 1004", 
+    title: "Marine Adhesive Performance Standard", 
+    desc: "Adhesion threshold requirements for extreme saltwater immersion and temperature fluctuations.", 
+    num: "04" 
+  },
+  { 
+    code: "MFSI 1005", 
+    label: "MFSI 1005", 
+    title: "Marine Surface Preparation Standard", 
+    desc: "Protocols for surface cleaning, decontaminating, and priming prior to film installation.", 
+    num: "05" 
+  }
+];
+
+const list = document.getElementById('mfsiAccordionList');
+let activeItem = null;
+
+DATA.forEach(d => {
+  const li = document.createElement('li');
+  li.innerHTML = `
+    <span class="card-label">${d.code}</span>
+    <span class="card-num">${d.num}</span>
+    <div class="card-content">
+      <h2>${d.title}</h2>
+      <p>${d.desc}</p>
+    </div>
+  `;
+
+  /* Mobile: tap to expand */
+  li.addEventListener('click', () => {
+    if (window.innerWidth > 600) return;
+    if (activeItem && activeItem !== li) activeItem.classList.remove('active');
+    li.classList.toggle('active');
+    activeItem = li.classList.contains('active') ? li : null;
+  });
+
+  list.appendChild(li);
+});
+</script>
+</body>
+</html>
