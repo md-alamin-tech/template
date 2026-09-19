@@ -1,0 +1,197 @@
+<!-- Custom Scroll Particle Canvas (Music Theme) -->
+<canvas id="scroll-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 99999;"></canvas>
+
+<script>
+(function() {
+    const canvas = document.getElementById('scroll-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let lastScrollY = window.scrollY;
+    let accumulatedScroll = 0;
+    const SCROLL_THRESHOLD = 35; 
+
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    class Particle {
+        constructor(x, y) {
+            this.x = x + (Math.random() - 0.5) * 20;
+            this.y = y + (Math.random() - 0.5) * 20;
+            this.size = Math.random() * 8 + 14; // Minimal size
+            this.type = Math.floor(Math.random() * 4); // 0: Note, 1: Guitar, 2: Saxophone, 3: Drum
+            this.opacity = 1;
+            this.speedY = -(Math.random() * 0.8 + 0.4);
+            this.speedX = (Math.random() - 0.5) * 0.6;
+            this.rotation = Math.random() * Math.PI * 2;
+            this.rotSpeed = (Math.random() - 0.5) * 0.03;
+            this.fadeRate = Math.random() * 0.012 + 0.008;
+        }
+
+        update() {
+            this.y += this.speedY;
+            this.x += this.speedX;
+            this.rotation += this.rotSpeed;
+            this.opacity -= this.fadeRate;
+        }
+
+        draw() {
+            if (this.opacity <= 0) return;
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, this.opacity);
+            ctx.translate(this.x, this.y);
+            ctx.rotate(this.rotation);
+
+            switch (this.type) {
+                case 0: this.drawMusicNote(); break;
+                case 1: this.drawGuitar(); break;
+                case 2: this.drawSaxophone(); break;
+                case 3: this.drawDrum(); break;
+            }
+            ctx.restore();
+        }
+
+        // 🎵 Musical Beamed Note
+        drawMusicNote() {
+            ctx.fillStyle = '#9b59b6';
+            const s = this.size / 15;
+            
+            // Left note head
+            ctx.beginPath();
+            ctx.arc(-4 * s, 4 * s, 3 * s, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Right note head
+            ctx.beginPath();
+            ctx.arc(4 * s, 2 * s, 3 * s, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Stems & Beam
+            ctx.strokeStyle = '#9b59b6';
+            ctx.lineWidth = 1.5 * s;
+            ctx.beginPath();
+            ctx.moveTo(-1.5 * s, 4 * s);
+            ctx.lineTo(-1.5 * s, -6 * s);
+            ctx.lineTo(6.5 * s, -8 * s);
+            ctx.lineTo(6.5 * s, 2 * s);
+            ctx.stroke();
+
+            ctx.fillRect(-1.5 * s, -8 * s, 8 * s, 3 * s);
+        }
+
+        // 🎸 Acoustic Guitar
+        drawGuitar() {
+            const s = this.size / 16;
+            
+            // Body
+            ctx.fillStyle = '#e67e22';
+            ctx.beginPath();
+            ctx.arc(0, 4 * s, 5 * s, 0, Math.PI * 2);
+            ctx.arc(0, -1 * s, 3.5 * s, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Sound hole
+            ctx.fillStyle = '#2c3e50';
+            ctx.beginPath();
+            ctx.arc(0, 1.5 * s, 1.8 * s, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Neck & Headstock
+            ctx.fillStyle = '#d35400';
+            ctx.fillRect(-1 * s, -11 * s, 2 * s, 8 * s);
+            ctx.fillRect(-1.5 * s, -13 * s, 3 * s, 2.5 * s);
+        }
+
+        // 🎷 Saxophone / Horn
+        drawSaxophone() {
+            const s = this.size / 16;
+            ctx.strokeStyle = '#f1c40f';
+            ctx.fillStyle = '#f1c40f';
+            ctx.lineWidth = 2 * s;
+
+            // Main Tube curve
+            ctx.beginPath();
+            ctx.moveTo(-3 * s, -8 * s);
+            ctx.lineTo(-3 * s, 3 * s);
+            ctx.arcTo(-3 * s, 7 * s, 2 * s, 7 * s, 4 * s);
+            ctx.lineTo(3 * s, 2 * s);
+            ctx.stroke();
+
+            // Bell (Horn end)
+            ctx.beginPath();
+            ctx.ellipse(3.5 * s, 0, 1.5 * s, 3.5 * s, -Math.PI / 6, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // 🥁 Snare Drum & Sticks
+        drawDrum() {
+            const s = this.size / 16;
+            
+            // Drum body
+            ctx.fillStyle = '#e74c3c';
+            ctx.fillRect(-6 * s, -2 * s, 12 * s, 6 * s);
+
+            // Drum rims (Top & Bottom)
+            ctx.fillStyle = '#ecf0f1';
+            ctx.beginPath();
+            ctx.ellipse(0, -2 * s, 6 * s, 2 * s, 0, 0, Math.PI * 2);
+            ctx.ellipse(0, 4 * s, 6 * s, 2 * s, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Drumsticks crossed
+            ctx.strokeStyle = '#f39c12';
+            ctx.lineWidth = 1 * s;
+            ctx.beginPath();
+            ctx.moveTo(-7 * s, -6 * s);
+            ctx.lineTo(5 * s, 2 * s);
+            ctx.moveTo(7 * s, -6 * s);
+            ctx.lineTo(-5 * s, 2 * s);
+            ctx.stroke();
+        }
+    }
+
+    let particles = [];
+    const MAX_PARTICLES = 15;
+
+    function spawnParticleOnScroll() {
+        const currentScrollY = window.scrollY;
+        const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+        accumulatedScroll += scrollDelta;
+        lastScrollY = currentScrollY;
+
+        if (accumulatedScroll >= SCROLL_THRESHOLD) {
+            accumulatedScroll = 0;
+            if (particles.length < MAX_PARTICLES) {
+                particles.push(new Particle(mouseX, mouseY));
+            }
+        }
+    }
+
+    window.addEventListener('scroll', spawnParticleOnScroll, { passive: true });
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = particles.length - 1; i >= 0; i--) {
+            particles[i].update();
+            particles[i].draw();
+            if (particles[i].opacity <= 0) {
+                particles.splice(i, 1);
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+})();
+</script>
