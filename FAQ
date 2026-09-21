@@ -1,30 +1,64 @@
-//Faq
-
-#faq .accordion-item{
-  background: white; 
-  margin-bottom: 20px;
-  padding-left: 30px !important;
-  padding-right: 30px !important;
-  border-radius:20px;
-  box-shadow: 0 1px rgba(0,0,0,0.2);
-  transition: 
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-#faq .accordion-item:hover{
-  transform: translateX(6px);
-
-  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+//=========faq=========
+#faq {
+  --faq-accent: #E95B27;
+  --faq-border: rgba(0,0,0,0.06);
+  --faq-text-dim: #6b6b6b;
 }
 
-#faq h4{
-  text-transform: capitalize;
+#faq .accordion-item {
+  background: #ffffff;
+  margin-bottom: 14px;
+  padding: 6px 32px !important;  
+  border: 1px solid var(--faq-border);
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#faq .accordion-item:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0,0,0,0.1);
+  box-shadow: 0 16px 32px -12px rgba(0,0,0,0.12);
+}
+
+
+#faq .accordion-item[data-is-expanded="true"],
+#faq .accordion-item.accordion-item--is-open {
+  border-color: var(--faq-accent);
+  box-shadow: 0 20px 40px -16px rgba(0,0,0,0.14);
+}
+
+#faq h4,
+#faq .accordion-item__title {
   font-weight: 500 !important;
-  font-size: 19px;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  text-transform: none;         
+  color: #1a1a1a;
+  transition: color 0.3s ease;
 }
-#faq p{
-  color: #555555;
+
+#faq .accordion-item:hover h4,
+#faq .accordion-item:hover .accordion-item__title {
+  color: var(--faq-accent);
 }
-.accordion-item__title{
-  font-weight: 500 !important;
+
+#faq p {
+  color: var(--faq-text-dim);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+
+#faq .accordion-item__icon,
+#faq .accordion-item svg {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--faq-accent);
+}
+#faq .accordion-item[data-is-expanded="true"] .accordion-item__icon,
+#faq .accordion-item.accordion-item--is-open .accordion-item__icon {
+  transform: rotate(45deg);   /* turns a "+" into an "×" */
 }
