@@ -1,0 +1,124 @@
+<div class="ba-slider-container-2">
+  <img src="https://images.squarespace-cdn.com/content/69ce755573fafa648bc66f3b/83016e72-c72e-4f67-9aca-a78161258cc8/children-room-with-bunk-bed-before-after-renovation.jpg?content-type=image%2Fjpeg" alt="After">
+  
+  <div class="img-overlay-2">
+    <img src="https://images.squarespace-cdn.com/content/69ce755573fafa648bc66f3b/f0b496a2-8afd-4e92-9718-7c9af55cce69/children-room-with-bunk-bed-before-after-renovation+after.jpg?content-type=image%2Fjpeg" alt="Before">
+  </div>
+  
+  <input type="range" min="0" max="100" value="50" class="ba-slider-2" id="compare-slider-2">
+  <div class="slider-button-2"></div>
+</div>
+
+<style>
+  .ba-slider-container-2 {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+    overflow: hidden; /* ছবিগুলো যাতে কোনা দিয়ে বের হয়ে না যায় */
+    line-height: 0;
+    user-select: none;
+    /* আপনার চাওয়া বর্ডার রেডিয়াস */
+    border-radius: 10px; 
+    /* সাফারী বা অন্যান্য ব্রাউজারে রেন্ডারিং ফিক্স */
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+  }
+
+  .ba-slider-container-2 img {
+    width: 100%;
+    display: block;
+    height: auto;
+  }
+
+  .img-overlay-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .img-overlay-2 img {
+    width: auto;
+    height: 100%;
+    max-width: none;
+    position: absolute;
+    left: 0;
+  }
+
+  .ba-slider-2 {
+    position: absolute;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    margin: 0;
+    z-index: 10;
+    cursor: ew-resize;
+    top: 0;
+  }
+
+  /* The Vertical Line */
+  .ba-slider-container-2::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: #fff;
+    z-index: 5;
+    pointer-events: none;
+    transform: translateX(-50%);
+  }
+
+  /* The Draggable Knob */
+  .slider-button-2 {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 6;
+    pointer-events: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  }
+
+  .slider-button-2::before {
+    content: '◀ ▶';
+    font-size: 12px;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+</style>
+
+<script>
+  (function() {
+    const slider2 = document.getElementById('compare-slider-2');
+    const overlay2 = document.querySelector('.img-overlay-2');
+    const button2 = document.querySelector('.slider-button-2');
+    const container2 = document.querySelector('.ba-slider-container-2');
+
+    // ডাইনামিক স্টাইল শিট তৈরি যাতে একই পেজে মাল্টিপল স্লাইডারে সমস্যা না হয়
+    const dynamicStyle = document.createElement('style');
+    document.head.appendChild(dynamicStyle);
+
+    slider2.addEventListener('input', (e) => {
+      const value = e.target.value;
+      overlay2.style.width = value + '%';
+      button2.style.left = value + '%';
+      
+      // লাইনের পজিশন আপডেট
+      dynamicStyle.innerHTML = `.ba-slider-container-2::after { left: ${value}% !important; }`;
+    });
+  })();
+</script>
