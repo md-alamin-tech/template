@@ -1,7 +1,6 @@
 
 #contractor-services, #msp-services{
   padding: 30px 20px;
- 
   border-radius: 20px;
 }
 
@@ -16,6 +15,11 @@
   right: auto !important;
   margin-left: -20px;
 text-align:left !important;
+}
+
+#service-areas.header-nav-folder-content {
+  border-radius: 10px !important;
+  overflow: hidden !important;
 }
 
 
