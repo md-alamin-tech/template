@@ -1,0 +1,132 @@
+<script>
+  (function () {
+    var subNav;
+    var SUB_PATHS = ['/our-project', '/our-founder', '/our-team', '/our-board'];
+
+    function getWrapper() { return document.querySelector('.header-nav-wrapper'); }
+
+    // About menu item ber kora
+    function getAboutItem(el) {
+      if (!el || !el.closest) return null;
+      var item = el.closest('.header-nav-item');
+      if (!item) return null;
+      return item.textContent.trim().toLowerCase().indexOf('about') !== -1 ? item : null;
+    }
+
+    // Submenu na thakle (ba header redraw hole) abar baniye nibe
+    function ensureSubNav() {
+      var wrapper = getWrapper();
+      if (!wrapper) return null;
+      if (subNav && wrapper.contains(subNav)) return subNav;
+      document.querySelectorAll('.custom-sub-nav').forEach(function (el) { el.remove(); });
+      subNav = document.createElement('div');
+      subNav.className = 'custom-sub-nav';
+      subNav.innerHTML =
+        '<a href="/our-project">Our Project</a>' +
+        '<a href="/our-founder">Our Founder</a>' +
+        '<a href="/our-team">Our Team</a>' +
+        '<a href="/our-board">Our Board</a>';
+      wrapper.appendChild(subNav);
+      return subNav;
+    }
+
+    function open(item) {
+      var s = ensureSubNav();
+      if (!s) return;
+      // About-er thik niche boshbe, jate gap na thake
+      var w = getWrapper().getBoundingClientRect();
+      var r = item.getBoundingClientRect();
+      s.style.top = (r.bottom - w.top) + 'px';
+      s.classList.add('active');
+    }
+
+    function close() {
+      if (subNav) subNav.classList.remove('active');
+    }
+
+    // Page load hoye gele About page ba tar sub page-e submenu auto-open hobe
+    function autoOpen() {
+      var about = null;
+      document.querySelectorAll('.header-nav-item').forEach(function (item) {
+        if (!about && getAboutItem(item)) about = item;
+      });
+      if (!about) return;
+      var path = location.pathname.replace(/\/$/, '');
+      var onSubPage = SUB_PATHS.indexOf(path) !== -1;
+      var aboutActive = about.classList.contains('header-nav-item--active');
+      if (aboutActive || onSubPage) open(about);
+    }
+
+    function scheduleAutoOpen() {
+      setTimeout(autoOpen, 150);
+      setTimeout(autoOpen, 600);
+    }
+
+    document.addEventListener('DOMContentLoaded', scheduleAutoOpen);
+    window.addEventListener('load', scheduleAutoOpen);
+    window.addEventListener('mercury:load', scheduleAutoOpen);
+    scheduleAutoOpen();
+
+    // Click: About-e click korle submenu khulbe (About page-o normally load hobe),
+    // baire click korle bondho hobe
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t || !t.closest) return;
+      var item = getAboutItem(t);
+      if (item) {
+        open(item);
+        return;
+      }
+      if (!t.closest('.custom-sub-nav')) close();
+    }, true);
+  })();
+</script>
+
+<style>
+  .header-nav-list {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .header-nav-wrapper {
+    position: relative !important;
+  }
+
+  .custom-sub-nav {
+    display: none !important;
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 100 !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 18px !important;
+    padding-top: 14px !important;
+    width: max-content !important;
+    max-width: 100vw !important;
+  }
+
+  .custom-sub-nav.active {
+    display: flex !important;
+  }
+
+  .custom-sub-nav a {
+    background: transparent !important;
+    color: #000 !important;
+    padding: 0 !important;
+    font-size: 16px !important;
+    font-family: inherit !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    white-space: nowrap !important;
+  }
+
+  .custom-sub-nav a:hover { opacity: 0.7; }
+
+  .header-nav-item--active a {
+    background: transparent !important;
+    padding: 0 !important;
+  }
+</style>
