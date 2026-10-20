@@ -1,0 +1,14 @@
+section[data-section-id="6ad7381a485ea057dbe2865f"] .section-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(35, 3, 68, 0.96) 0%,
+    rgba(35, 3, 68, 0.88) 30%,
+    rgba(35, 3, 68, 0.55) 55%,
+    rgba(35, 3, 68, 0.15) 80%,
+    rgba(35, 3, 68, 0) 100%
+  );
+}
