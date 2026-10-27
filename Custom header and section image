@@ -1,0 +1,74 @@
+section[data-section-id="6ae05d356cfadf6030841f4a"] .section-background,
+section[data-section-id="6ae05d356cfadf6030841f52"] .section-background,
+section[data-section-id="6ae05d356cfadf6030841f62"] .section-background,
+section[data-section-id="6ae05d356cfadf6030841f5e"] .section-background {
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  width: auto;
+  height: auto;
+  border-radius: 12px;      /* optional */
+  overflow: hidden;
+}
+
+
+/* ===== Floating Capsule Header ===== */
+#header {
+  --hdr-top-gap: 20px;          /* header top theke koto niche thakbe */
+  --hdr-top-gap-scrolled: 12px; /* scroll korle koto niche */
+  --hdr-bg: #191919;
+  --hdr-pad-x: 40px;
+  --hdr-pad-y: 12px;            /* header-er height barate eta barao */
+  --hdr-speed: 0.35s;
+
+  background: transparent !important;
+  padding-top: var(--hdr-top-gap) !important;
+  transition: padding-top var(--hdr-speed) ease-in-out;
+}
+
+/* Squarespace default background layers reset */
+#header .header-background,
+#header .header-background-solid,
+#header .header-dropshadow {
+  display: none !important;
+}
+
+/* Default state */
+#header .header-inner {
+  box-sizing: border-box;
+  max-width: var(--maxPageWidth);
+  margin-inline: auto !important;
+  padding-inline: 0 !important;
+  padding-block: var(--hdr-pad-y) !important;
+  background-color: transparent !important;
+  border: 1px solid transparent;
+  border-radius: 500px;
+  box-shadow: 0 0 0 transparent;
+  transition:
+    padding var(--hdr-speed) ease-in-out,
+    background-color var(--hdr-speed) ease-in-out,
+    border-color var(--hdr-speed) ease-in-out,
+    box-shadow var(--hdr-speed) ease-in-out;
+}
+
+/* Scroll state */
+#header.shrink {
+  padding-top: var(--hdr-top-gap-scrolled) !important;
+}
+
+#header.shrink .header-inner {
+  padding-inline: var(--hdr-pad-x) !important;
+  background-color: var(--hdr-bg) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  #header {
+    --hdr-top-gap: 10px;
+    --hdr-top-gap-scrolled: 8px;
+    --hdr-pad-x: 20px;
+    --hdr-pad-y: 12px;
+  }
+}
