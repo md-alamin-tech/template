@@ -1,0 +1,49 @@
+
+/* Sob image block-e hover effect */
+.sqs-block-image .sqs-block-content {
+  position: relative;
+  overflow: hidden;
+}
+
+.sqs-block-image img {
+  transition: transform 0.5s ease-in-out;
+}
+
+.sqs-block-image .sqs-block-content::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.sqs-block-image .sqs-block-content:hover img {
+  transform: scale(1.04);
+}
+
+.sqs-block-image .sqs-block-content:hover::after {
+  animation: imageOverlaySweep 0.8s ease-in-out forwards;
+}
+
+@keyframes imageOverlaySweep {
+  0% {
+    left: 50%;
+    width: 0;
+    opacity: 1;
+  }
+  62.5% { /* 0.5s: overlay puro bhore gese */
+    left: 0;
+    width: 100%;
+    opacity: 1;
+  }
+  100% { /* 0.8s: overlay fade out hoye gese */
+    left: 0;
+    width: 100%;
+    opacity: 0;
+  }
+}
