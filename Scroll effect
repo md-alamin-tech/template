@@ -1,0 +1,61 @@
+<!-- Lenis Smooth Scroll -->
+<script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
+<!-- GSAP & ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true
+  });
+
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+
+  gsap.registerPlugin(ScrollTrigger);
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time) => lenis.raf(time * 1000));
+  gsap.ticker.lagSmoothing(0);
+
+  const sections = gsap.utils.toArray("#sections .page-section");
+
+  sections.forEach((section, i) => {
+    section.classList.add("fe-stacked-section");
+    section.style.zIndex = i + 1;
+
+    if (i < sections.length - 1) {
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        pin: true,
+        pinSpacing: false,
+        scrub: true,
+        invalidateOnRefresh: true
+      });
+    }
+  });
+
+  // Force a re-measure once images/fonts are actually loaded
+  window.addEventListener("load", () => {
+    ScrollTrigger.refresh();
+  });
+});
+</script>
+
+
+===============================================
+
+/* Smooth scroll handling */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
