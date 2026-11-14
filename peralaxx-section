@@ -1,0 +1,27 @@
+#schedule-section .section-background img,
+#schedule-section .section-background-canvas,
+#schedule-section .sqs-video-background
+
+
+{
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+#schedule-section .section-background {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), 
+  url('https://images.squarespace-cdn.com/content/64c03059a1f51d17444460a4/e764ad73-cdbb-4a64-9b09-723fb228d2c8/top-view-dining-tables-without-food.jpg?content-type=image%2Fjpeg') !important;
+  background-attachment: fixed !important;
+  background-position: center center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+
+
+
+@media screen and (max-width: 767px) {
+  #schedule-section .section-background {
+    background-attachment: scroll !important;
+  }
+  
+}
