@@ -1,0 +1,161 @@
+<style>
+:root { --ab-h: 50px; }
+
+#custom-announcement-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--ab-h);
+  background: #1c1c1c;
+  color: #fff;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+/* পেজ ও হেডারকে বারের নিচে ঠেলে দেয় */
+body.ab-active { padding-top: var(--ab-h) !important; }
+.ab-offset { top: var(--ab-h) !important; }
+
+#custom-announcement-bar .ab-center {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  max-width: 100%;
+}
+#custom-announcement-bar .ab-text {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .3px;
+  min-width: 160px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity .3s ease;
+}
+#custom-announcement-bar .ab-text a { color: #fff; text-decoration: none; }
+#custom-announcement-bar button {
+  background: none; border: 0; color: #fff;
+  cursor: pointer; padding: 8px; line-height: 1;
+  display: flex; align-items: center;
+}
+#custom-announcement-bar button:hover { opacity: .7; }
+#custom-announcement-bar svg {
+  width: 16px; height: 16px;
+  stroke: #fff; fill: none; stroke-width: 2;
+}
+#custom-announcement-bar .ab-right {
+  position: absolute; right: 24px; top: 0; bottom: 0;
+  display: flex; align-items: center; gap: 14px;
+}
+#custom-announcement-bar .ab-dashes { display: flex; gap: 10px; }
+#custom-announcement-bar .ab-dash {
+  width: 30px; height: 2px; background: #5a5a5a;
+  cursor: pointer; transition: background .3s;
+}
+#custom-announcement-bar .ab-dash.active { background: #fff; }
+
+/* ট্যাবলেট */
+@media (max-width: 1024px) {
+  #custom-announcement-bar .ab-right { right: 12px; }
+  #custom-announcement-bar .ab-dash { width: 20px; }
+}
+/* মোবাইল */
+@media (max-width: 768px) {
+  :root { --ab-h: 44px; }
+  #custom-announcement-bar .ab-right { display: none; }
+  #custom-announcement-bar .ab-center { gap: 8px; width: 100%; justify-content: space-between; padding: 0 8px; }
+  #custom-announcement-bar .ab-text { font-size: 13px; min-width: 0; flex: 1; }
+}
+</style>
+
+<script>
+(function () {
+  // ===== আপনার বার্তাগুলো এখানে বদলান =====
+  var messages = [
+  { text: "New | Lèsteez Discovery Travel Set — $94.99", link: "https://www.lesteezparfums.com/shop-2/p/ysl-black-opium-1" },
+  { text: "Gianni No.73 × Le Désir — 2 × 10 mL, Unisex", link: "https://www.lesteezparfums.com/shop-2/p/ysl-black-opium-1" },
+  { text: "Experience Both Sides of Lèsteez Before Choosing Your Signature", link: "https://www.lesteezparfums.com/shop-2/p/ysl-black-opium-1" }
+];
+  var intervalTime = 4000;
+  // ======================================
+
+  var pauseIcon = '<svg viewBox="0 0 24 24"><line x1="9" y1="5" x2="9" y2="19"/><line x1="15" y1="5" x2="15" y2="19"/></svg>';
+  var playIcon  = '<svg viewBox="0 0 24 24"><polygon points="7 4 19 12 7 20 7 4" fill="#fff"/></svg>';
+
+  function init() {
+    var old = document.getElementById("custom-announcement-bar");
+    if (old) old.remove();
+
+    var bar = document.createElement("div");
+    bar.id = "custom-announcement-bar";
+    bar.innerHTML =
+      '<div class="ab-center">' +
+        '<button class="ab-prev" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>' +
+        '<div class="ab-text"></div>' +
+        '<button class="ab-next" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>' +
+      '</div>' +
+      '<div class="ab-right">' +
+        '<button class="ab-pause" aria-label="Pause">' + pauseIcon + '</button>' +
+        '<div class="ab-dashes"></div>' +
+      '</div>';
+    document.body.insertBefore(bar, document.body.firstChild);
+    document.body.classList.add("ab-active");
+
+    // হেডার ফিক্সড/স্টিকি হলে নিচে নামাবে
+    function offsetHeader() {
+      var h = document.querySelector("#header, header.header, header");
+      if (!h) return;
+      var pos = getComputedStyle(h).position;
+      h.classList.toggle("ab-offset", pos === "fixed" || pos === "sticky");
+    }
+    offsetHeader();
+    window.addEventListener("resize", offsetHeader);
+    window.addEventListener("load", offsetHeader);
+    setTimeout(offsetHeader, 800);
+
+    var textEl = bar.querySelector(".ab-text");
+    var dashWrap = bar.querySelector(".ab-dashes");
+    var pauseBtn = bar.querySelector(".ab-pause");
+    var current = 0, timer = null, paused = false;
+
+    messages.forEach(function (m, i) {
+      var d = document.createElement("div");
+      d.className = "ab-dash";
+      d.addEventListener("click", function () { show(i); restart(); });
+      dashWrap.appendChild(d);
+    });
+    var dashes = dashWrap.querySelectorAll(".ab-dash");
+
+    function show(i) {
+      current = (i + messages.length) % messages.length;
+      textEl.style.opacity = 0;
+      setTimeout(function () {
+        var m = messages[current];
+        textEl.innerHTML = '<a href="' + m.link + '">' + m.text + '</a>';
+        textEl.style.opacity = 1;
+      }, 200);
+      dashes.forEach(function (d, idx) { d.classList.toggle("active", idx === current); });
+    }
+    function start() { timer = setInterval(function () { show(current + 1); }, intervalTime); }
+    function restart() { clearInterval(timer); if (!paused) start(); }
+
+    bar.querySelector(".ab-prev").addEventListener("click", function () { show(current - 1); restart(); });
+    bar.querySelector(".ab-next").addEventListener("click", function () { show(current + 1); restart(); });
+    pauseBtn.addEventListener("click", function () {
+      paused = !paused;
+      if (paused) { clearInterval(timer); pauseBtn.innerHTML = playIcon; }
+      else { start(); pauseBtn.innerHTML = pauseIcon; }
+    });
+
+    show(0);
+    start();
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
